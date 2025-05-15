@@ -396,6 +396,7 @@ footer{
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-top: 5px;
 }
 
 .btn-file-upload {
@@ -415,10 +416,6 @@ footer{
 
 .btn-file-upload:hover {
     background-color: #3a7bc8;
-}
-
-.btn-file-upload i {
-    margin-right: 6px;
 }
 
 .file-selected {
@@ -470,14 +467,21 @@ footer{
 /* Estilo para el formulario de nueva categoría */
 .new-category-container {
     margin-top: 10px;
-    display: flex;
-    gap: 10px;
+    display: none; /* Oculto por defecto */
     align-items: center;
+    gap: 10px;
+    background: #f8f9fa;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
 }
 
 .new-category-container input[type="text"] {
     flex: 1;
-    margin: 0;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
 .button-group {
@@ -516,25 +520,24 @@ footer{
 }
 
 .btn-cancel {
-    padding: 10px 24px;
+    padding: 8px 16px;
     background-color: #dc3545;
     color: white;
     border: none;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: 500;
+    border-radius: 4px;
     cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: background-color 0.3s;
+    gap: 5px;
 }
 
 .btn-cancel:hover {
     background-color: #c82333;
     color: white;
+    text-decoration: none;
 }
 
 .btn-save-category {
@@ -546,34 +549,44 @@ footer{
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .btn-save-category:hover {
     background-color: #218838;
 }
 
-/* Estilos para el select múltiple */
-select[multiple] {
-    min-height: 100px;
-    padding: 8px;
-}
-
-select[multiple] option {
-    padding: 8px 12px;
-    margin: 2px 0;
+.btn-show-category {
+    padding: 8px 16px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    font-size: 14px;
+    margin-top: 8px;
+    transition: background-color 0.3s;
 }
 
-select[multiple] option:hover {
-    background-color: #f0f0f0;
+.btn-show-category:hover {
+    background-color: #5a6268;
 }
 
-select[multiple] option:checked {
-    background-color: #e3f2fd;
-    color: #0d6efd;
-    font-weight: 500;
+/* Asegurar que el input file esté oculto */
+#id_image {
+    display: none;
+}
+
+/* Estilos para el select de categorías */
+#id_categories {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: white;
+    min-height: 100px;
 }
 
 /* Mejoras para dispositivos móviles */
@@ -600,5 +613,22 @@ select[multiple] option:checked {
     .btn-save,
     .btn-cancel {
         width: 100%;
+    }
+    
+    .new-category-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .button-group {
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .btn-save-category,
+    .btn-cancel {
+        flex: 1;
+        text-align: center;
+        justify-content: center;
     }
 }

@@ -24,9 +24,13 @@ class ArticleForm(forms.ModelForm):
                 'class': 'form-select',
                 'id': 'id_categories'
             }),
+            'image': forms.FileInput(attrs={
+                'class': 'custom-file-input',
+                'style': 'display: none;'  # Ocultamos el input file por defecto
+            })
         }
         
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Asegurarse de que el campo categories use el widget Select2
+        # Asegurarse de que el campo categories use el widget SelectMultiple
         self.fields['categories'].widget.attrs.update({'class': 'form-select'})

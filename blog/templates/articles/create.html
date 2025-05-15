@@ -35,7 +35,7 @@
             </div>
 
             <div class="form-group">
-                <label for="id_image">Imagen:</label>
+                <label>Imagen:</label>
                 <div class="file-upload-container">
                     <label for="id_image" class="btn-file-upload">
                         <i class="fa fa-upload"></i> Seleccionar archivo
@@ -67,7 +67,7 @@
                         Otra categoría
                     </button>
                 </div>
-                <div id="new-category-container" class="new-category-container" style="display: none;">
+                <div id="new-category-container" class="new-category-container">
                     {{ form.new_category }}
                     <div class="button-group">
                         <button type="button" id="save-category" class="btn-save-category">
@@ -102,60 +102,70 @@
         });
 
         // Mostrar/ocultar campo para nueva categoría
-        document.getElementById('show-new-category').addEventListener('click', function() {
-            const container = document.getElementById('new-category-container');
-            container.style.display = container.style.display === 'none' ? 'block' : 'none';
-            if (container.style.display === 'block') {
-                container.querySelector('input').focus();
-            }
-        });
-
-        // Cancelar nueva categoría
-        document.getElementById('cancel-category').addEventListener('click', function() {
-            document.getElementById('new-category-container').style.display = 'none';
-            document.getElementById('id_new_category').value = '';
-        });
-
-        // Guardar nueva categoría
-        document.getElementById('save-category').addEventListener('click', function() {
-            const categoryName = document.getElementById('id_new_category').value.trim();
-            if (categoryName) {
-                fetch('{% url "create_category_ajax" %}', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-CSRFTOKEN': '{{ csrf_token }}'
-                    },
-                    body: `name=${encodeURIComponent(categoryName)}`
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Agregar la nueva opción al select
-                        const select = document.getElementById('id_categories');
-                        const option = new Option(categoryName, data.category_id, true, true);
-                        select.add(option);
-                        
-                        // Limpiar y ocultar el formulario
-                        document.getElementById('id_new_category').value = '';
-                        document.getElementById('new-category-container').style.display = 'none';
-                    } else {
-                        alert('Error al crear la categoría: ' + data.error);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Error al conectar con el servidor');
-                });
-            }
-        });
-
-        // Permitir tecla Enter para guardar categoría
-        document.getElementById('id_new_category').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                document.getElementById('save-category').click();
-            }
+        document.addEventListener('DOMContentLoaded', function() {
+            const newCategoryContainer = document.getElementById('new-category-container');
+            const newCategoryInput = document.getElementById('id_new_category');
+            const showCategoryBtn = document.getElementById('show-new-category');
+            const cancelCategoryBtn = document.getElementById('cancel-category');
+            const saveCategoryBtn = document.getElementById('save-category');
+            
+            // Ocultar el contenedor de nueva categoría al cargar
+            newCategoryContainer.style.display = 'none';
+            
+            // Mostrar el campo de nueva categoría
+            showCategoryBtn.addEventListener('click', function() {
+                newCategoryContainer.style.display = 'flex';
+                newCategoryInput.style.display = 'block';
+                newCategoryInput.focus();
+            });
+            
+            // Cancelar la adición de nueva categoría
+            cancelCategoryBtn.addEventListener('click', function() {
+                newCategoryContainer.style.display = 'none';
+                newCategoryInput.value = '';
+            });
+            
+            // Guardar nueva categoría
+            saveCategoryBtn.addEventListener('click', function() {
+                const categoryName = newCategoryInput.value.trim();
+                if (categoryName) {
+                    fetch('{% url "create_category_ajax" %}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-CSRFTOKEN': '{{ csrf_token }}'
+                        },
+                        body: `name=${encodeURIComponent(categoryName)}`
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Agregar la nueva opción al select
+                            const select = document.getElementById('id_categories');
+                            const option = new Option(categoryName, data.category_id, true, true);
+                            select.add(option);
+                            
+                            // Limpiar y ocultar el formulario
+                            newCategoryInput.value = '';
+                            newCategoryContainer.style.display = 'none';
+                        } else {
+                            alert('Error al crear la categoría: ' + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Error al conectar con el servidor');
+                    });
+                }
+            });
+            
+            // Permitir tecla Enter para guardar categoría
+            newCategoryInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    saveCategoryBtn.click();
+                }
+            });
         });
     </script>
 {% endblock %}
