@@ -1,4 +1,5 @@
 {% extends 'layout/layout.html' %}
+{% load static %}
 
 {% block title %}Crear Artículo{% endblock %}
 
@@ -34,37 +35,127 @@
             </div>
 
             <div class="form-group">
-                <label for="{{ form.image.id_for_label }}">Imagen:</label>
-                {{ form.image }}
+                <label for="id_image">Imagen:</label>
+                <div class="file-upload-container">
+                    <label for="id_image" class="btn-file-upload">
+                        <i class="fa fa-upload"></i> Seleccionar archivo
+                    </label>
+                    <span id="file-name" class="file-selected">Ningún archivo seleccionado</span>
+                    {{ form.image }}
+                </div>
                 {% if form.image.errors %}
                     <div class="error">{{ form.image.errors }}</div>
                 {% endif %}
+                <small class="form-text text-muted">Formatos soportados: .jpg, .jpeg, .png</small>
             </div>
 
-
             <div class="form-group">
-                <label for="{{ form.public.id_for_label }}">¿Público?</label>
-                {{ form.public }}
+                <label for="{{ form.public.id_for_label }}" class="public-checkbox">
+                    {{ form.public }}
+                    <span>¿Publicar artículo?</span>
+                </label>
                 {% if form.public.errors %}
                     <div class="error">{{ form.public.errors }}</div>
                 {% endif %}
             </div>
 
-
             <div class="form-group">
-                <label>Categorías:</label>
-                <div class="categories-checkbox">
+                <label for="id_categories">Categorías:</label>
+                <div class="categories-container">
                     {{ form.categories }}
+                    <button type="button" id="show-new-category" class="btn-show-category">
+                        Otra categoría
+                    </button>
+                </div>
+                <div id="new-category-container" class="new-category-container" style="display: none;">
+                    {{ form.new_category }}
+                    <div class="button-group">
+                        <button type="button" id="save-category" class="btn-save-category">
+                            <i class="fa fa-check"></i> Guardar
+                        </button>
+                        <button type="button" id="cancel-category" class="btn-cancel">
+                            <i class="fa fa-times"></i> Cancelar
+                        </button>
+                    </div>
                 </div>
                 {% if form.categories.errors %}
                     <div class="error">{{ form.categories.errors }}</div>
                 {% endif %}
             </div>
 
-
-            <div class="form-group">
-                <input type="submit" value="Guardar Artículo" class="btn btn-primary" />
+            <div class="form-actions">
+                <button type="submit" class="btn-save">
+                    <i class="fa fa-save"></i> Guardar Artículo
+                </button>
+                <a href="{% url 'list_articles' %}" class="btn-cancel">
+                    <i class="fa fa-times"></i> Cancelar
+                </a>
             </div>
         </form>
     </div>
+
+    <script>
+        // Mostrar nombre del archivo seleccionado
+        document.getElementById('id_image').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'Ningún archivo seleccionado';
+            document.getElementById('file-name').textContent = fileName;
+        });
+
+        // Mostrar/ocultar campo para nueva categoría
+        document.getElementById('show-new-category').addEventListener('click', function() {
+            const container = document.getElementById('new-category-container');
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+            if (container.style.display === 'block') {
+                container.querySelector('input').focus();
+            }
+        });
+
+        // Cancelar nueva categoría
+        document.getElementById('cancel-category').addEventListener('click', function() {
+            document.getElementById('new-category-container').style.display = 'none';
+            document.getElementById('id_new_category').value = '';
+        });
+
+        // Guardar nueva categoría
+        document.getElementById('save-category').addEventListener('click', function() {
+            const categoryName = document.getElementById('id_new_category').value.trim();
+            if (categoryName) {
+                fetch('{% url "create_category_ajax" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFTOKEN': '{{ csrf_token }}'
+                    },
+                    body: `name=${encodeURIComponent(categoryName)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Agregar la nueva opción al select
+                        const select = document.getElementById('id_categories');
+                        const option = new Option(categoryName, data.category_id, true, true);
+                        select.add(option);
+                        
+                        // Limpiar y ocultar el formulario
+                        document.getElementById('id_new_category').value = '';
+                        document.getElementById('new-category-container').style.display = 'none';
+                    } else {
+                        alert('Error al crear la categoría: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error al conectar con el servidor');
+                });
+            }
+        });
+
+        // Permitir tecla Enter para guardar categoría
+        document.getElementById('id_new_category').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById('save-category').click();
+            }
+        });
+    </script>
 {% endblock %}

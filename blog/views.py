@@ -1,7 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import JsonResponse
 from blog.models import Category, Article
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
 from .forms import ArticleForm
 from django.contrib import messages
 
@@ -59,3 +62,31 @@ def create_article(request):
         'form': form,
         'title': 'Crear Artículo',
     })
+
+@require_http_methods(["POST"])
+@csrf_exempt
+def create_category_ajax(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({'success': False, 'error': 'No autenticado'}, status=403)
+    
+    name = request.POST.get('name', '').strip()
+    if not name:
+        return JsonResponse({'success': False, 'error': 'El nombre de la categoría no puede estar vacío'})
+    
+    try:
+        # Verificar si la categoría ya existe
+        category, created = Category.objects.get_or_create(
+            name=name,
+            defaults={'description': name}
+        )
+        
+        if not created:
+            return JsonResponse({'success': False, 'error': 'La categoría ya existe'})
+            
+        return JsonResponse({
+            'success': True,
+            'category_id': category.id,
+            'category_name': category.name
+        })
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})

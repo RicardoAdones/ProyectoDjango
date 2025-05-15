@@ -347,3 +347,258 @@ footer{
     padding-bottom: 20px;
     box-shadow: 0px 0px 20px gray;
 }
+
+/* Estilos para el formulario de artículos */
+.form-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 25px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group select,
+.form-group .django-ckeditor-widget {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 15px;
+    transition: border-color 0.3s;
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+/* Estilo para el campo de subida de archivo */
+.file-upload-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-file-upload {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.btn-file-upload:hover {
+    background-color: #3a7bc8;
+}
+
+.btn-file-upload i {
+    margin-right: 6px;
+}
+
+.file-selected {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Estilo para el checkbox de publicación */
+.public-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.public-checkbox input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+}
+
+/* Estilo para el menú desplegable de categorías */
+.categories-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#id_categories {
+    flex: 1;
+    min-height: 38px;
+}
+
+.btn-show-category {
+    padding: 0 15px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.btn-show-category:hover {
+    background-color: #e0e0e0;
+}
+
+/* Estilo para el formulario de nueva categoría */
+.new-category-container {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.new-category-container input[type="text"] {
+    flex: 1;
+    margin: 0;
+}
+
+.button-group {
+    display: flex;
+    gap: 8px;
+}
+
+/* Estilos para los botones */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.btn-save {
+    padding: 10px 24px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.3s;
+}
+
+.btn-save:hover {
+    background-color: #218838;
+}
+
+.btn-cancel {
+    padding: 10px 24px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.3s;
+}
+
+.btn-cancel:hover {
+    background-color: #c82333;
+    color: white;
+}
+
+.btn-save-category {
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.btn-save-category:hover {
+    background-color: #218838;
+}
+
+/* Estilos para el select múltiple */
+select[multiple] {
+    min-height: 100px;
+    padding: 8px;
+}
+
+select[multiple] option {
+    padding: 8px 12px;
+    margin: 2px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+select[multiple] option:hover {
+    background-color: #f0f0f0;
+}
+
+select[multiple] option:checked {
+    background-color: #e3f2fd;
+    color: #0d6efd;
+    font-weight: 500;
+}
+
+/* Mejoras para dispositivos móviles */
+@media (max-width: 768px) {
+    .form-container {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    .categories-container {
+        flex-direction: column;
+    }
+    
+    .btn-show-category {
+        width: 100%;
+        padding: 8px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-save,
+    .btn-cancel {
+        width: 100%;
+    }
+}
