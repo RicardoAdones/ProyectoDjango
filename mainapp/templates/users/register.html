@@ -1,0 +1,29 @@
+{% extends 'layout/layout.html' %}
+ 
+{% block title %} {{title}} {% endblock %}
+
+{% block content %}
+
+    <h1>{{title}}</h1>
+
+    {{register_form.errors}}
+
+    <form action="" method="post">
+    
+        {% csrf_token %}
+
+        {% comment %}
+            {{register_form.as_p}}
+        {% endcomment %}
+        
+        {% for field in register_form %}
+            <label for=""> {{field.label}} </label> 
+            {{field}}
+        {% endfor %}
+
+
+        <input type="submit" value="Registrarse">
+
+    </form>
+    
+{% endblock %}

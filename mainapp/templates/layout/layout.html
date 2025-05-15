@@ -1,0 +1,105 @@
+{% load static %}
+<!doctype html>
+<html lang="es-cl">
+
+<head>
+    <title>
+        {% block title %}
+            Sitio web con Django
+        {% endblock title %}
+    </title>
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"> 
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+</head>
+
+<body>
+    <!--Cabecera de la pagina-->
+    <header>
+        <div id="logotipo">
+            <!--logo django-->
+            <img src="{% static 'images/original.png' %}">
+            <h1>Proyecto con Django</h1>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li>
+                <a href="{% url 'index' %}"> Inicio </a>
+            </li>
+
+            {% if user.email %}
+                <li>
+                    <a href="{% url 'list_articles' %}"> Categorías </a>
+                    <ul>
+                        {% for category in categories %}
+                            <li>
+                                <a href="{% url 'category' category.0 %}">{{category.1}} </a>{% comment %} {% url 'category' category.0 %} category.0 da el id de la categoria  {% endcomment %}
+                            </li>
+                        {% endfor %}
+                        
+                    </ul>
+                </li>
+                {% for page in pages %}
+                    <li>
+                        <a href="{% url 'page' page.2 %}"> {{page.1}} </a> {% comment %} el 'page' entre comillas viene del numbre de la url que le damos  {% endcomment %}
+                    </li>
+                {% endfor %}
+
+                <li>
+                    <a href="{% url 'logout' %}"> Cerrar sesión </a>
+                </li>
+
+            {% else %}
+            
+                <li>
+                    <a href="{% url 'register' %}"> Registro </a>
+                </li>
+                <li>
+                    <a href="{% url 'login' %}"> Login </a>
+                </li>
+                
+            {% endif %}
+        </ul>
+    </nav>
+    
+    <div class="barra">
+        <span class="esquina-izquierda"></span>
+        <span class="relleno-barra"></span>
+        <span class="esquina-derecha"></span>
+    </div>
+
+    <div id="content">
+        <div class="box">
+            
+            {% block content %}
+                <strong>Contenido del bloque original</strong>
+            {% endblock content %}
+        </div>
+    </div>
+
+
+    <footer>
+        Master en Python &copy; Ricardo Adones - {% now 'd/m/Y' %}
+    </footer>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

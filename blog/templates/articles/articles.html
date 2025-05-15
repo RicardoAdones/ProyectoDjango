@@ -1,0 +1,44 @@
+    {% for article in articles %} 
+
+        {% if article.public == True %} {% comment %} este if es para que se muestren solo los articulos que estan publicados {% endcomment %}
+            <article class="article-item">
+            
+                {% if article.image != 'null' and article.image.url|length >= 1 %}
+                    <div class=image>
+                        <img src="{{article.image.url}}">
+                    </div>
+            
+                {% endif %}
+
+                <div class="data">
+                
+                    <h2>
+                        <a href="{% url 'article' article.id%}">{{article.title}}</a>
+                    </h2>
+                    <p>
+                        {% for category in article.categories.all %}
+                        <a href="{% url 'category' category.id %}">{{category.name}}</a> 
+
+                        {% if forloop.counter < article.categories.all|length %}
+                                {{'-'}}
+                        {% endif %}
+                        {% endfor %}
+                    </p>
+
+                    <span class="date">
+                        {{article.user.first_name}} {{article.user.last_name}}
+                        |
+                        {{article.created_at|date:'d/m/Y'}}
+                    </span>
+                    <p>
+                        {{article.content|safe}}
+                        <br>
+                        
+                    </p>
+
+                </div>
+
+                <div class="clearfix"></div>
+            </article>
+        {% endif %}
+    {% endfor %}
