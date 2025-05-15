@@ -405,7 +405,7 @@ footer{
     justify-content: center;
     padding: 10px 16px;
     background-color: #4a90e2;
-    color: white;
+    color: white !important;
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -416,6 +416,7 @@ footer{
 
 .btn-file-upload:hover {
     background-color: #3a7bc8;
+    color: white !important;
 }
 
 .file-selected {
@@ -502,7 +503,7 @@ footer{
 .btn-save {
     padding: 10px 24px;
     background-color: #28a745;
-    color: white;
+    color: white !important;
     border: none;
     border-radius: 6px;
     font-size: 15px;
@@ -522,7 +523,7 @@ footer{
 .btn-cancel {
     padding: 8px 16px;
     background-color: #dc3545;
-    color: white;
+    color: white !important;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -536,14 +537,14 @@ footer{
 
 .btn-cancel:hover {
     background-color: #c82333;
-    color: white;
+    color: white !important;
     text-decoration: none;
 }
 
 .btn-save-category {
     padding: 8px 16px;
     background-color: #28a745;
-    color: white;
+    color: white !important;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -561,7 +562,7 @@ footer{
 .btn-show-category {
     padding: 8px 16px;
     background-color: #6c757d;
-    color: white;
+    color: white !important;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -631,4 +632,10 @@ footer{
         text-align: center;
         justify-content: center;
     }
+}
+
+/* Asegurar que los iconos dentro de los botones también sean blancos */
+.btn-file-upload i,
+.btn-cancel i {
+    color: white !important;
 }
