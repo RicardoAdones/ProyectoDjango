@@ -1,7 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from blog.models import Category, Article
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from .forms import ArticleForm
+from django.contrib import messages
 
 # Create your views here.
 @login_required(login_url='login')
@@ -37,4 +39,23 @@ def article(request, article_id):
 
     return render(request, 'articles/detail.html', {
         'article': article,
+    })
+
+@login_required(login_url='login')
+def create_article(request):
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, request.FILES)
+        if form.is_valid():
+            article = form.save(commit=False)
+            article.user = request.user
+            article.save()
+            form.save_m2m()  # Guarda las relaciones many-to-many (categorías)
+            messages.success(request, '¡Artículo creado correctamente!')
+            return redirect('article', article.id)
+    else:
+        form = ArticleForm()
+    
+    return render(request, 'articles/create.html', {
+        'form': form,
+        'title': 'Crear Artículo',
     })

@@ -44,7 +44,9 @@
                                 <a href="{% url 'category' category.0 %}">{{category.1}} </a>{% comment %} {% url 'category' category.0 %} category.0 da el id de la categoria  {% endcomment %}
                             </li>
                         {% endfor %}
-                        
+                        <li>
+                            <a href="{% url 'create_article' %}"> + Nuevo Artículo</a>
+                        </li>
                     </ul>
                 </li>
                 {% for page in pages %}
