@@ -136,9 +136,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Custom',
+        'height': 300,
+        'width': '100%',
         'toolbar_Custom': [
             ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
             ['Link', 'Unlink'],
             ['RemoveFormat', 'Source', 'Table', 'Image']
         ]

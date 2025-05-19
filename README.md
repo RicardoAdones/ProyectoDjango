@@ -6,4 +6,4 @@
 <br>
 `django-js-asset==1.2.2`
 <br>
-`Pillow-7.2.0`
+`Pillow==7.2.0`

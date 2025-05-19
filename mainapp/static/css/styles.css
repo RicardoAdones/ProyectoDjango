@@ -351,243 +351,63 @@ footer{
 /* Estilos para el formulario de artículos */
 .form-container {
     width: 80%;
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 25px;
+    max-width: 1000px;  /* Aumentado para más espacio */
+    margin: 40px auto;
+    padding: 40px;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    display: flex;          /* Añadido */
+    flex-direction: column; /* Añadido */
+    align-items: center;    /* Añadido */
+}
+
+.form-container form {
+    width: 100%;           /* Añadido */
+    display: flex;         /* Añadido */
+    flex-direction: column; /* Añadido */
+    align-items: center;    /* Añadido */
 }
 
 .form-group {
-    margin-bottom: 25px;
+    width: 100%;
+    max-width: 900px;      /* Aumentado */
+    margin-bottom: 30px;
 }
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #333;
+/* Asegurar que CKEditor use todo el ancho */
+.django-ckeditor-widget,
+#cke_id_content {
+    width: 100% !important;
+    max-width: 900px !important;  /* Aumentado */
 }
 
+/* Ajustar inputs y textareas */
 .form-group input[type="text"],
 .form-group textarea,
 .form-group select,
 .form-group .django-ckeditor-widget {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    box-sizing: border-box;
-    font-size: 15px;
-    transition: border-color 0.3s;
+    width: 90%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
 }
 
-.form-group input[type="text"]:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    border-color: #4a90e2;
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
-}
-
-/* Estilo para el campo de subida de archivo */
-.file-upload-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 5px;
-}
-
-.btn-file-upload {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 16px;
-    background-color: #4a90e2;
-    color: white !important;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: background-color 0.3s;
-}
-
-.btn-file-upload:hover {
-    background-color: #3a7bc8;
-    color: white !important;
-}
-
-.file-selected {
-    color: #666;
-    font-size: 14px;
-}
-
-/* Estilo para el checkbox de publicación */
-.public-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    user-select: none;
-}
-
-.public-checkbox input[type="checkbox"] {
-    width: auto;
-    margin: 0;
-}
-
-/* Estilo para el menú desplegable de categorías */
+/* Centrar los elementos de archivo y categorías */
+.file-upload-container,
 .categories-container {
+    width: 100%;
+    max-width: 900px;      /* Aumentado */
     display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-#id_categories {
-    flex: 1;
-    min-height: 38px;
-}
-
-.btn-show-category {
-    padding: 0 15px;
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    color: #555;
-    cursor: pointer;
-    transition: all 0.3s;
-    white-space: nowrap;
-}
-
-.btn-show-category:hover {
-    background-color: #e0e0e0;
-}
-
-/* Estilo para el formulario de nueva categoría */
-.new-category-container {
-    margin-top: 10px;
-    display: none; /* Oculto por defecto */
-    align-items: center;
-    gap: 10px;
-    background: #f8f9fa;
-    padding: 12px;
-    border-radius: 6px;
-    border: 1px solid #dee2e6;
-}
-
-.new-category-container input[type="text"] {
-    flex: 1;
-    padding: 8px 12px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-.button-group {
-    display: flex;
-    gap: 8px;
-}
-
-/* Estilos para los botones */
-.form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 15px;
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
-}
-
-.btn-save {
-    padding: 10px 24px;
-    background-color: #28a745;
-    color: white !important;
-    border: none;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
     justify-content: center;
-    gap: 8px;
-    transition: background-color 0.3s;
+    margin: 15px 0;
 }
 
-.btn-save:hover {
-    background-color: #218838;
-}
-
-.btn-cancel {
-    padding: 8px 16px;
-    background-color: #dc3545;
-    color: white !important;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.btn-cancel:hover {
-    background-color: #c82333;
-    color: white !important;
-    text-decoration: none;
-}
-
-.btn-save-category {
-    padding: 8px 16px;
-    background-color: #28a745;
-    color: white !important;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.btn-save-category:hover {
-    background-color: #218838;
-}
-
-.btn-show-category {
-    padding: 8px 16px;
-    background-color: #6c757d;
-    color: white !important;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    margin-top: 8px;
-    transition: background-color 0.3s;
-}
-
-.btn-show-category:hover {
-    background-color: #5a6268;
-}
-
-/* Asegurar que el input file esté oculto */
-#id_image {
-    display: none;
-}
-
-/* Estilos para el select de categorías */
+/* Asegurar que el selector de categorías use todo el ancho */
 #id_categories {
     width: 100%;
-    padding: 8px 12px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    background-color: white;
-    min-height: 100px;
+    min-height: 120px;
 }
 
 /* Mejoras para dispositivos móviles */
